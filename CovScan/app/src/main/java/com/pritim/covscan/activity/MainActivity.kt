@@ -1,7 +1,8 @@
-package com.pritim.covscan
+package com.pritim.covscan.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.pritim.covscan.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
