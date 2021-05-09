@@ -10,19 +10,21 @@
             "message" => $message
         );
 
-        echo json_encode(arr);
+        echo json_encode($res);
 
     }
 
 
-    if ($_POST["id"] && $_POST["confidence"]) {
+    if (!empty($_POST["id"]) && !empty($_POST["confidence"])) {
         $id = $_POST["id"];
         $confidence = $_POST["confidence"];
 
-        $query = "UPDATE users set confidence = '$confidence' where id = '$id'";
+        $query = "UPDATE users set confidience = '$confidence' where id = '$id'";
 
-        response(true,"Berhasil Update Confidence");
+        if(mysqli_query($connect,$query)){
     
+            response(true,"Berhasil Update Confidence");
+        }
     }
     else {
         response(false,"Gagal Update Confidence");
