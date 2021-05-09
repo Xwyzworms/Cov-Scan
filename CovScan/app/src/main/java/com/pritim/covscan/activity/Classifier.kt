@@ -58,12 +58,23 @@ input_size:Int) {
 
     }
 
-    fun recognizeImage(bitmap : Bitmap) : Array<FloatArray>{
+    fun recognizeImage(bitmap : Bitmap) : MutableMap<String,Float>{
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap,INPUT_SIZE,INPUT_SIZE,false)
         val byteBuffer = convertBitMapToByteBuffer(scaledBitmap)
         val res = Array(1) {FloatArray(1)}
         interpreter.run(byteBuffer, res)
-        return res
+        val hasil = getTheLabel(res)
+        return mutableMapOf<String,Float>(hasil to res[0][0])
+    }
+
+    private fun getTheLabel(result : Array<FloatArray>) : String{
+        var res : Float = result[0][0]
+        if (res <= 0.60) {
+            return "covid"
+        }
+        else {
+            return "notcovid"
+        }
     }
 
     private fun convertBitMapToByteBuffer(bitmap: Bitmap) :ByteBuffer {
@@ -79,7 +90,6 @@ input_size:Int) {
                 byteBuffer.putFloat((((input.shr(16)  and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
                 byteBuffer.putFloat((((input.shr(8) and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
                 byteBuffer.putFloat((((input and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
-
             }
         }
     return byteBuffer

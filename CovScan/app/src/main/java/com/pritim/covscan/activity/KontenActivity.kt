@@ -1,24 +1,115 @@
 package com.pritim.covscan.activity
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pritim.covscan.R
+import com.pritim.covscan.activity.NetworkAPI.User
+import java.io.Serializable
+import java.math.RoundingMode
 
-class KontenActivity : AppCompatActivity(), View.OnClickListener {
+class KontenActivity : AppCompatActivity() {
     private val mInputSize = 150
     private val mModelPath = "ctScan.tflite"
     private lateinit var classifier : Classifier
     private  val mLabelPath = "labelct.txt"
+    private var user = User()
+    lateinit var bottomNavigation : BottomNavigationView
+    private val REQUEST_PICK_IMAGE = 2
+
+    lateinit var  ivImagetapHere : ImageView
+    lateinit var  btnKontenPeriksa : Button
+    lateinit var  tvKontentAkurasi : TextView
+    lateinit var  tvKontenStatusPemeriksaan : TextView
+    private fun getUserFromIntent() {
+        user =intent.getSerializableExtra("EXTRA_USER") as User
+    }
+
+    private fun openGallery() {
+        Intent(Intent.ACTION_GET_CONTENT).also{ intent->
+            intent.type ="image/*"
+
+            intent.resolveActivity(packageManager).also {
+
+                startActivityForResult(intent,REQUEST_PICK_IMAGE)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == RESULT_OK) {
+            if(requestCode == REQUEST_PICK_IMAGE) {
+                Log.d("Sampis","Masuk Kesini")
+                val selectedBitmap : Uri? = data?.data
+                val Image : Bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,selectedBitmap)
+                ivImagetapHere.setImageBitmap(Image)
+            }
+        }
+        else {
+            Log.d("SAMPIS","UNDERTALe")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content_utama)
         initClassifier()
         initViews()
+        getUserFromIntent()
+        user = intent.getSerializableExtra("EXTRA_USER") as User
+
+        ivImagetapHere.setOnClickListener {
+            openGallery()
+        }
+        btnKontenPeriksa.setOnClickListener {
+            val image = (ivImagetapHere.drawable as BitmapDrawable).bitmap
+            val res = classifier.recognizeImage(image)
+            if(res.keys.contains( "notcovid")) {
+                tvKontenStatusPemeriksaan.text = "Selamat Anda Sehat"
+                tvKontentAkurasi.text = "Akurasi " + (res["notcovid"].toString().toBigDecimal().setScale(5,RoundingMode.UP).toDouble() * 100 ).toString()
+
+            }
+            else if (res.keys.contains("covid")) {
+                tvKontenStatusPemeriksaan.text = "Maaf Anda Positif Covid 19"
+                tvKontenStatusPemeriksaan.setTextColor( ContextCompat.getColor(applicationContext,R.color.darkred))
+                tvKontentAkurasi.text = "Akurasi " + (( 100 - res["covid"].toString().toBigDecimal().setScale(3,RoundingMode.UP).toDouble()) * 100 ).toString()
+            }
+        }
+
+        bottomNavigation.selectedItemId = R.id.nav_covScan
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+
+            when(item.itemId){
+                R.id.nav_settings ->{
+                    val nav_settings = Intent(this,PengaturanActivity::class.java)
+                    nav_settings.putExtra("EXTRA_USER",user as Serializable)
+                    nav_settings.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(nav_settings)
+                }
+                R.id.nav_beranda->{
+                    val intent = Intent(this,BerandaActivity::class.java)
+                    intent.putExtra("EXTRA_USER",user as Serializable)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
     }
 
     private fun initClassifier(){
@@ -26,14 +117,11 @@ class KontenActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private  fun initViews() {
-        findViewById<ImageView>(R.id.ImgTapDisini).setOnClickListener(this)
-    }
+        ivImagetapHere = findViewById(R.id.ImgTapDisini)
+        btnKontenPeriksa = findViewById(R.id.btnKontenPeriksa)
+        tvKontenStatusPemeriksaan = findViewById(R.id.tvKontenStatusPemeriksaan)
+        tvKontentAkurasi = findViewById(R.id.tvKontenAkurasiPemeriksaan)
+        bottomNavigation = findViewById(R.id.bottomNavigationView)
 
-    override fun onClick(v: View?) {
-        val bitmap = ((v as ImageView ).drawable as BitmapDrawable).bitmap
-        val res = classifier.recognizeImage(bitmap)
-        runOnUiThread {
-            Toast.makeText(this,res.toString(),Toast.LENGTH_LONG).show()
-        }
     }
 }

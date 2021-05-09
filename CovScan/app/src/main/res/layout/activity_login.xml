@@ -66,6 +66,7 @@
                 android:hint="Email"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLoginEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -80,18 +81,19 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLoginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btnLoginMasuk"
                 android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                android:text="Masuk"
-                android:background="@drawable/backgroundbutton"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                />
+                android:background="@drawable/backgroundbutton"
+                android:text="Masuk" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
@@ -106,7 +108,7 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/btnMasukDaftar"
+                    android:id="@+id/btnLoginDaftar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/white"
