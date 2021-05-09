@@ -12,7 +12,6 @@
 
     if (!empty($_POST["id"])) {
 
-
         $id = $_POST["id"];
 
         $query = "DELETE FROM users where id = '$id'";

@@ -51,13 +51,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/notcovid"
+                android:src="@drawable/uploadhere"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <Button
-                android:id="@+id/btnPeriksa"
+                android:id="@+id/btnKontenPeriksa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -75,14 +75,14 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnPeriksa" />
+                app:layout_constraintTop_toBottomOf="@+id/btnKontenPeriksa" />
 
             <TextView
-                android:id="@+id/tvStatusPemeriksaan"
+                android:id="@+id/tvKontenStatusPemeriksaan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Selamat Anda Sehat"
+                android:text=" - "
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,10 +96,10 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvStatusPemeriksaan" />
+                app:layout_constraintTop_toBottomOf="@+id/tvKontenStatusPemeriksaan" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvKontenAkurasiPemeriksaan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -117,7 +117,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toBottomOf="@+id/tvKontenAkurasiPemeriksaan" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

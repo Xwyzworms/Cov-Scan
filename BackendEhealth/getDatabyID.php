@@ -11,7 +11,7 @@
             "data" => $data
         );
 
-        echo json_encode(arr);
+        echo json_encode($arr);
     }
 
 
@@ -22,7 +22,7 @@
         $mysqliRes = (mysqli_query($connect,$query));
 
         if(mysqli_num_rows($mysqliRes) > 0 ) {
-            while($row = mysqli_fetch_assoc($get)) {
+            while($row = mysqli_fetch_assoc($mysqliRes)) {
                 $data[] = $row;
             }
             set_response(true,"Success",$data);

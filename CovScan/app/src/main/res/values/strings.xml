@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">CovScan</string>
+    <string name="update_kasus_covid">Update Kasus Covid</string>
+    <string name="jumlah_kasus">Jumlah Kasus</string>
+    <string name="_0">0</string>
+    <string name="sembuh">sembuh</string>
+    <string name="meninggal">Meninggal</string>
+    <string name="pilih">Pilih</string>
+    <string name="informasi_lengkap_covid_19">Informasi Lengkap Covid-19</string>
+    <string name="didukung_oleh">Didukung Oleh :</string>
+
+    <string-array name="list_negara">
+        <item>Dunia</item>
+        <item>Indonesia</item>
+    </string-array>
 </resources>

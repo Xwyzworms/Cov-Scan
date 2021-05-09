@@ -22,7 +22,7 @@ if(
     $password = $_POST["password"];
     $tanggal = $_POST["tgl_lahir"];
 
-    $query = "INSERT INTO users (nama,email,tgl_lahir,password) values ('$nama','$email','$tgl_lahir','$password')";
+    $query = "INSERT INTO users (nama,email,tgl_lahir,password) values ('$nama','$email','$tanggal','$password')";
 
     if(mysqli_query($connect,$query)) {
         set_response(true,"Sucess Inserting data");
