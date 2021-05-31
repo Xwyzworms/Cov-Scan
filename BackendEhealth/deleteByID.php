@@ -10,7 +10,7 @@
         );
     }
 
-    if (!empty($_POST["id"])) {
+    if (($_POST["id"] != "")) {
 
         $id = $_POST["id"];
 
