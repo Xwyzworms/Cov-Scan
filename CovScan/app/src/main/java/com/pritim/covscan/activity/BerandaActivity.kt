@@ -1,6 +1,7 @@
 package com.pritim.covscan.activity
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -170,6 +171,8 @@ class BerandaActivity : AppCompatActivity() {
                     override fun onCancelled(error: DatabaseError) {}
                 })
         bottomNavigation.selectedItemId = R.id.nav_beranda
+        bottomNavigation.itemBackground = ColorDrawable(resources.getColor(R.color.white))
+
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             item.setIcon(R.drawable.ic_baseline_home_24)
             when(item.itemId){
@@ -185,6 +188,7 @@ class BerandaActivity : AppCompatActivity() {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     item.setIcon(R.drawable.ic_baseline_camera_24)
+
                 }
             }
            true

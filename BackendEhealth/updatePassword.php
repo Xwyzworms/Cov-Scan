@@ -10,7 +10,7 @@ function response($success, $message) {
         "message" => $message
     ));
 }
-if(!empty($_POST["password"]) && !empty($_POST["id"])) {
+if( ($_POST["password"] != "") && ($_POST["id"] != "")) {
     $id = $_POST["id"];
     $pass = $_POST["password"];
 

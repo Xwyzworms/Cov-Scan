@@ -15,7 +15,7 @@
     }
 
 
-    if (!empty($_POST["id"]) && !empty($_POST["confidence"])) {
+    if (($_POST["id"] != "") && ($_POST["confidence"] != "")) {
         $id = $_POST["id"];
         $confidence = $_POST["confidence"];
 
