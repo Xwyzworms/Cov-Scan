@@ -46,7 +46,14 @@ class PengaturanActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ResponseGet>, response: Response<ResponseGet>) {
                     if( response.body() != null ) {
                         tvPengaturanEmail.text = user.email
-                        tvStatusPengaturan.text = response.body()!!.data?.get(0)?.confidence.toString()
+                        val confidence : Float  = response.body()!!.data?.get(0)?.confidence!!
+                        if (confidence <= 0.6)  {
+
+                            tvStatusPengaturan.text = "Pemeriksaan Terakhir anda Positif covid 19"
+                        }
+                        else if (confidence > 0.6) {
+                            tvStatusPengaturan.text = "Pemeriksaan Terakhir anda Sehat"
+                        }
                     }
                 }
 

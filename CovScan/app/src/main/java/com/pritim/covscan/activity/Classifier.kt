@@ -2,6 +2,7 @@ package com.pritim.covscan.activity
 
 import android.content.res.AssetManager
 import android.graphics.Bitmap
+import android.util.Log
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
 import java.nio.ByteBuffer
@@ -69,6 +70,7 @@ input_size:Int) {
 
     private fun getTheLabel(result : Array<FloatArray>) : String{
         var res : Float = result[0][0]
+        Log.d("debug","Result : $res")
         if (res <= 0.60) {
             return "covid"
         }

@@ -17,7 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pritim.covscan.R
+import com.pritim.covscan.activity.NetworkAPI.NetworkModule
+import com.pritim.covscan.activity.NetworkAPI.ResponseAction
 import com.pritim.covscan.activity.NetworkAPI.User
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Serializable
 import java.math.RoundingMode
 
@@ -61,10 +66,10 @@ class KontenActivity : AppCompatActivity() {
             }
         }
         else {
-            Log.d("SAMPIS","UNDERTALe")
+
+            Log.d("debug","UNDERTALe")
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content_utama)
@@ -81,13 +86,33 @@ class KontenActivity : AppCompatActivity() {
             val res = classifier.recognizeImage(image)
             if(res.keys.contains( "notcovid")) {
                 tvKontenStatusPemeriksaan.text = "Selamat Anda Sehat"
-                tvKontentAkurasi.text = "Akurasi " + (res["notcovid"].toString().toBigDecimal().setScale(5,RoundingMode.UP).toDouble() * 100 ).toString()
+                tvKontenStatusPemeriksaan.setTextColor(ContextCompat.getColor(applicationContext,R.color.green))
+                tvKontentAkurasi.text = "Akurasi Pemeriksaan : " + (res["notcovid"].toString().toBigDecimal().setScale(5,RoundingMode.UP).toDouble() * 100 ).toString()
+                NetworkModule.service().updateConfidence(user.id,(res["notcovid"].toString().toBigDecimal().setScale(3,RoundingMode.UP).toFloat() * 100)).enqueue(object : Callback<ResponseAction> {
+                    override fun onResponse(call: Call<ResponseAction>, response: Response<ResponseAction>) {
+                            Toast.makeText(applicationContext, "Successfully update the confidence",Toast.LENGTH_LONG).show()
+                    }
+
+                    override fun onFailure(call: Call<ResponseAction>, t: Throwable) {
+                        Toast.makeText(applicationContext, "Failed Update the confidence",Toast.LENGTH_LONG).show()
+                    }
+                })
 
             }
             else if (res.keys.contains("covid")) {
                 tvKontenStatusPemeriksaan.text = "Maaf Anda Positif Covid 19"
                 tvKontenStatusPemeriksaan.setTextColor( ContextCompat.getColor(applicationContext,R.color.darkred))
-                tvKontentAkurasi.text = "Akurasi " + (( 100 - res["covid"].toString().toBigDecimal().setScale(3,RoundingMode.UP).toDouble()) * 100 ).toString()
+                tvKontentAkurasi.text = "Akurasi Pemeriksaan : " + (( 100 - res["covid"].toString().toBigDecimal().setScale(3,RoundingMode.UP).toDouble()) * 100 ).toString()
+                NetworkModule.service().updateConfidence(user.id,(res["covid"].toString().toBigDecimal().setScale(3,RoundingMode.UP).toFloat() * 100)).enqueue(object : Callback<ResponseAction> {
+                    override fun onResponse(call: Call<ResponseAction>, response: Response<ResponseAction>) {
+                        Toast.makeText(applicationContext,"SuccessFully Update the confiddence",Toast.LENGTH_LONG).show()
+
+                    }
+
+                    override fun onFailure(call: Call<ResponseAction>, t: Throwable) {
+                        Toast.makeText(applicationContext,"Failed Update the confidence",Toast.LENGTH_LONG).show()
+                    }
+                })
             }
         }
 
