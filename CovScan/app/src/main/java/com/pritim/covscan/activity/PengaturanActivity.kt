@@ -42,17 +42,20 @@ class PengaturanActivity : AppCompatActivity() {
     }
     private fun  initInformation() {
         if ( user != null) {
-            NetworkModule.service().getDataByEmail(user.email.toString()).enqueue(object : Callback<ResponseGet> {
+            NetworkModule.service().getDataByEmail(user.email.toString()).enqueue(object : Callback<ResponseGet>    {
                 override fun onResponse(call: Call<ResponseGet>, response: Response<ResponseGet>) {
                     if( response.body() != null ) {
                         tvPengaturanEmail.text = user.email
                         val confidence : Float  = response.body()!!.data?.get(0)?.confidence!!
-                        if (confidence <= 0.6)  {
+                        if (confidence >= 0.1 && confidence <= 0.6)  {
 
                             tvStatusPengaturan.text = "Pemeriksaan Terakhir anda Positif covid 19"
                         }
                         else if (confidence > 0.6) {
                             tvStatusPengaturan.text = "Pemeriksaan Terakhir anda Sehat"
+                        }
+                        else {
+                            tvStatusPengaturan.text="Anda belum melakukan pemeriksaan"
                         }
                     }
                 }
@@ -69,6 +72,7 @@ class PengaturanActivity : AppCompatActivity() {
         intent.putExtra("EXTRA_USER", user as Serializable)
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
+        finish()
 
     }
     private fun ubahPassword(pass : String,newPass : String) {
@@ -91,6 +95,7 @@ class PengaturanActivity : AppCompatActivity() {
         intent.putExtra("EXTRA_USER",user as Serializable)
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
+        finish()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,15 +112,22 @@ class PengaturanActivity : AppCompatActivity() {
             moveToUbahPassword()
         }
 
+        cvPengaturanLogOut.setOnClickListener {
+            var intent = Intent(applicationContext,LoginActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
+            finish()
+        }
         bottomNavigation.selectedItemId = R.id.nav_settings
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             item.setIcon(R.drawable.ic_baseline_home_24)
             when(item.itemId){
                 R.id.nav_beranda-> {
-                    val intent = Intent(this,PengaturanActivity::class.java)
+                    val intent = Intent(this,BerandaActivity::class.java)
                     intent.putExtra("EXTRA_USER",user as Serializable)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
+                    finish()
                 }
                 R.id.nav_covScan->{
                     val intent = Intent(this,KontenActivity::class.java)
@@ -123,6 +135,7 @@ class PengaturanActivity : AppCompatActivity() {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     item.setIcon(R.drawable.ic_baseline_camera_24)
+                    finish()
                 }
             }
             true

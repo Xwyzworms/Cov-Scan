@@ -125,12 +125,14 @@ class KontenActivity : AppCompatActivity() {
                     nav_settings.putExtra("EXTRA_USER",user as Serializable)
                     nav_settings.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(nav_settings)
+                    finish()
                 }
                 R.id.nav_beranda->{
                     val intent = Intent(this,BerandaActivity::class.java)
                     intent.putExtra("EXTRA_USER",user as Serializable)
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
+                    finish()
                 }
             }
             true

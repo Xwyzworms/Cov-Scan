@@ -12,10 +12,10 @@ function set_response($success, $message){
 }
 
 if(
-    !empty($_POST["nama"]) &&
-    !empty($_POST["email"]) &&
-    !empty($_POST["password"]) &&
-    !empty($_POST["tgl_lahir"])
+    ($_POST["nama"] != "") &&
+    ($_POST["email"] != "") &&
+    ($_POST["password"] != "") &&
+    ($_POST["tgl_lahir"] != "")
 ) {
     $nama =$_POST["nama"];
     $email = $_POST["email"];

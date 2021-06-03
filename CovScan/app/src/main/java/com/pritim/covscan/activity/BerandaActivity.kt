@@ -181,6 +181,7 @@ class BerandaActivity : AppCompatActivity() {
                     nav_settings.putExtra("EXTRA_USER",user as Serializable)
                     nav_settings.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(nav_settings)
+                    finish()
                 }
                 R.id.nav_covScan->{
                     val intent = Intent(this,KontenActivity::class.java)
@@ -188,6 +189,7 @@ class BerandaActivity : AppCompatActivity() {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     item.setIcon(R.drawable.ic_baseline_camera_24)
+                    finish()
 
                 }
             }

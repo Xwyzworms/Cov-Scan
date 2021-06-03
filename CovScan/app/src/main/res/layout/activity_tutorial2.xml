@@ -44,33 +44,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTutorial3" />
 
-    <Button
+    <ImageView
         android:id="@+id/tutorial2Btn1"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="85dp"
-        android:background="@drawable/circledrawable"
+        android:background="@drawable/ic_indicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tutorial3Informasi" />
 
-    <Button
+    <ImageView
         android:id="@+id/tutorial2Btn2"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="85dp"
-        android:background="@drawable/circledrawable"
+        android:background="@drawable/ic_placeholder_indicator"
         app:layout_constraintStart_toEndOf="@+id/tutorial2Btn1"
         app:layout_constraintTop_toBottomOf="@+id/tutorial3Informasi" />
 
-    <Button
+    <ImageView
         android:id="@+id/tutorial2Btn3"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginTop="85dp"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/circledrawable"
+        android:background="@drawable/ic_indicator"
         app:layout_constraintStart_toEndOf="@+id/tutorial2Btn2"
         app:layout_constraintTop_toBottomOf="@+id/tutorial3Informasi" />
 
