@@ -2,6 +2,7 @@ package com.pritim.covscan.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -16,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.Serializable
+import java.util.regex.Pattern
 
 class LoginActivity : AppCompatActivity() {
     lateinit var etLoginEmail : EditText
@@ -32,23 +34,28 @@ class LoginActivity : AppCompatActivity() {
 
     private fun validateInfo() {
 
+
         var email = etLoginEmail.text.toString()
         var password = etLoginPassword.text.toString()
         var user = User()
         var network = NetworkModule.service().getDataByEmail(email)
         network.enqueue(object : Callback<ResponseGet> {
             override fun onResponse(call: Call<ResponseGet>, response: Response<ResponseGet>) {
-                Toast.makeText(applicationContext, "Berhasil Mendapatkan Email",Toast.LENGTH_LONG).show()
-                user = response.body()?.data?.get(0)!!
-
-                if (password == user.password) {
-                    var intent = Intent(applicationContext,BerandaActivity::class.java)
-                    intent.putExtra("EXTRA_USER", user )
-                    startActivity(intent)
-                    finish()
+                if(response.body()?.data?.size != 0) {
+                    user = response.body()?.data?.get(0)!!
+                    if (user != null) {
+                        if (password == user.password) {
+                            var intent = Intent(applicationContext, BerandaActivity::class.java)
+                            intent.putExtra("EXTRA_USER", user)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "Password atau email salah", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
                 else {
-                    Toast.makeText(applicationContext, "Password atau email salah",Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,"Email Belum terdaftar",Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -59,11 +66,17 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         initView()
 
+        tvLoginDaftar.setOnClickListener {
+            val intent = Intent(applicationContext,DaftarActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         btnLoginMasuk.setOnClickListener {
             validateInfo()
         }

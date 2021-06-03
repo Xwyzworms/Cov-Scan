@@ -12,13 +12,14 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.CovScan">
-        <activity android:name=".activity.DaftarActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.DaftarActivity"/>
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.KontenActivity"/>
         <activity android:name=".activity.BerandaActivity"/>

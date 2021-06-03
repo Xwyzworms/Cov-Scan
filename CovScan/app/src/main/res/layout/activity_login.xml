@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Halo"
+        android:layout_marginTop="20dp"
         android:textSize="48sp"
         android:textStyle="bold"
         android:layout_marginStart="34dp"
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="24sp"
-                android:text="Daftar"
+                android:text="Login"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="40dp"
                 android:textColor="@color/fullBluePrimary"
@@ -77,12 +78,13 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="30dp"
-
+                app:endIconMode="password_toggle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etLoginPassword"
                     android:layout_width="match_parent"
+                    android:inputType="textPassword"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
 

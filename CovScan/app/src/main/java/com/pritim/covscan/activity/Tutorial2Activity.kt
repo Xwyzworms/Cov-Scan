@@ -3,6 +3,7 @@ package com.pritim.covscan.activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.pritim.covscan.R
 import com.pritim.covscan.activity.NetworkAPI.User
@@ -10,9 +11,9 @@ import com.pritim.covscan.activity.NetworkAPI.User
 class Tutorial2Activity : AppCompatActivity() {
     private lateinit var btnTutorial2Selanjutnya : Button
     private  lateinit var btnTutorial2Kembali : Button
-    private lateinit var  btnTutorial2btn1 : Button
-    private lateinit var  btnTutorial2btn2 : Button
-    private lateinit var  btnTutorial2btn3 : Button
+    private lateinit var  btnTutorial2btn1 : ImageView
+    private lateinit var  btnTutorial2btn2 : ImageView
+    private lateinit var  btnTutorial2btn3 : ImageView
     private lateinit var  user : User
     private fun initViews() {
 
@@ -39,26 +40,31 @@ class Tutorial2Activity : AppCompatActivity() {
             val intent = Intent(this,Tutorial1Activity::class.java)
             modifiedIntent(intent)
             startActivity(intent)
+            finish()
         }
         btnTutorial2Selanjutnya.setOnClickListener {
             val intent = Intent(this,Tutorial3Activity::class.java)
             modifiedIntent(intent)
             startActivity(intent)
+            finish()
         }
         btnTutorial2btn1.setOnClickListener {
             val intent = Intent(this,Tutorial1Activity::class.java)
             modifiedIntent(intent)
             startActivity(intent)
+            finish()
         }
         btnTutorial2btn2.setOnClickListener {
             val intent = Intent(this,Tutorial2Activity::class.java)
             modifiedIntent(intent)
             startActivity(intent)
+            finish()
         }
         btnTutorial2btn3.setOnClickListener {
             val intent = Intent(this,Tutorial3Activity::class.java)
             modifiedIntent(intent)
             startActivity(intent)
+            finish()
         }
 
     }
