@@ -1,5 +1,6 @@
 package com.pritim.covscan.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -64,6 +65,11 @@ class UbahInformasiActivity : AppCompatActivity() {
         initUser()
         btnUbahPassword.setOnClickListener {
             updatePasswordNow()
+            val intent = Intent(applicationContext,BerandaActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            intent.putExtra("EXTRA_USER",user)
+            startActivity(intent)
+            finish()
         }
     }
 }

@@ -8,7 +8,8 @@ object NetworkModule {
     var Gson = GsonBuilder().setLenient().create()
     fun getRetrofit() : Retrofit {
 
-        return Retrofit.Builder().baseUrl("http://192.168.0.113/BackendEhealth/").addConverterFactory(GsonConverterFactory.create(Gson)).build()
+        return Retrofit.Builder().baseUrl("http://10.0.2.2/BackendEhealth/").addConverterFactory(GsonConverterFactory.create(Gson)).build()
+
     }
     fun service() : ApiService= getRetrofit().create(ApiService::class.java)
 }
